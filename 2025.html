@@ -441,130 +441,130 @@
       }
     </style>
     <style>
-        .digit {
-          display: inline-block;
-          position: relative;
-          animation: fadeIn 1s ease-out forwards;
-        }
-      
-        #digit-2-1 {
-          animation: bounce 1.5s infinite;
-          animation-delay: 0.2s;
-        }
-      
-        #digit-0 {
-          animation: spin 2s infinite;
-          animation-delay: 0.4s;
-        }
-      
-        #digit-2-2 {
-          animation: scalePulse 1.5s infinite;
-          animation-delay: 0.6s;
-        }
-      
-        #digit-5 {
-          animation: swing 1.5s infinite;
-          animation-delay: 0.8s;
-        }
-      
-        @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-      
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      
-        @keyframes scalePulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.2);
-          }
-        }
-      
-        @keyframes swing {
-          0% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(10deg);
-          }
-          75% {
-            transform: rotate(-10deg);
-          }
-          100% {
-            transform: rotate(0deg);
-          }
-        }
+      .digit {
+        display: inline-block;
+        position: relative;
+        animation: fadeIn 1s ease-out forwards;
+      }
 
-        .animated {
-        opacity: 0;
-        animation-fill-mode: forwards;
-        }
+      #digit-2-1 {
+        animation: bounce 1.5s infinite;
+        animation-delay: 0.2s;
+      }
 
-        .fade-in {
-        animation: fadeIn 2s ease-in;
-        }
+      #digit-0 {
+        animation: spin 2s infinite;
+        animation-delay: 0.4s;
+      }
 
-        @keyframes fadeIn {
-        0% {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
+      #digit-2-2 {
+        animation: scalePulse 1.5s infinite;
+        animation-delay: 0.6s;
+      }
+
+      #digit-5 {
+        animation: swing 1.5s infinite;
+        animation-delay: 0.8s;
+      }
+
+      @keyframes bounce {
+        0%,
         100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        }
-
-        .bounce-in {
-        animation: bounceIn 1.5s ease-out;
-        }
-
-        @keyframes bounceIn {
-        0% {
-            opacity: 0;
-            transform: scale(0.5);
+          transform: translateY(0);
         }
         50% {
-            opacity: 0.7;
-            transform: scale(1.2);
+          transform: translateY(-20px);
         }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        }
+      }
 
-        .slide-in {
-        animation: slideIn 2s ease-out;
-        }
-
-        @keyframes slideIn {
+      @keyframes spin {
         0% {
-            opacity: 0;
-            transform: translateX(-100px);
+          transform: rotate(0deg);
         }
         100% {
-            opacity: 1;
-            transform: translateX(0);
+          transform: rotate(360deg);
         }
-        }
+      }
 
-      </style>
-      
+      @keyframes scalePulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      @keyframes swing {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(10deg);
+        }
+        75% {
+          transform: rotate(-10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      .animated {
+        opacity: 0;
+        animation-fill-mode: forwards;
+      }
+
+      .fade-in {
+        animation: fadeIn 2s ease-in;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .bounce-in {
+        animation: bounceIn 1.5s ease-out;
+      }
+
+      @keyframes bounceIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scale(1.2);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .slide-in {
+        animation: slideIn 2s ease-out;
+      }
+
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="sparkles"></div>
