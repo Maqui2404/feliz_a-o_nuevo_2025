@@ -10,6 +10,20 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XB867E0DNZ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-XB867E0DNZ");
+    </script>
     <!-- CONFETI -->
     <style>
       #confetti-container {
@@ -1065,7 +1079,6 @@
           <div class="card-front">
             <div class="card-number floating">5</div>
             <span class="click-hint">Click here</span>
-
           </div>
           <div class="card-back">
             <p class="message">
