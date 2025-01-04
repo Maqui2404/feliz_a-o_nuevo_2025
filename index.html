@@ -860,6 +860,32 @@
         }
       }
     </style>
+
+    <style>
+      .click-hint {
+        position: absolute;
+        bottom: 10px; /* Ajusta según la ubicación deseada */
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 2px 6px;
+        border-radius: 4px;
+        pointer-events: none; /* Para que no interfiera con el clic */
+        animation: fadeInOut 2s infinite ease-in-out;
+      }
+
+      @keyframes fadeInOut {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="background-animation"></div>
@@ -982,6 +1008,7 @@
         <div class="card-inner">
           <div class="card-front">
             <div class="card-number floating">1</div>
+            <span class="click-hint">Click here</span>
           </div>
           <div class="card-back">
             <p class="message">
@@ -995,6 +1022,7 @@
         <div class="card-inner">
           <div class="card-front">
             <div class="card-number floating">2</div>
+            <span class="click-hint">Click here</span>
           </div>
           <div class="card-back">
             <p class="message">
@@ -1008,6 +1036,7 @@
         <div class="card-inner">
           <div class="card-front">
             <div class="card-number floating">3</div>
+            <span class="click-hint">Click here</span>
           </div>
           <div class="card-back">
             <p class="message">
@@ -1021,6 +1050,7 @@
         <div class="card-inner">
           <div class="card-front">
             <div class="card-number floating">4</div>
+            <span class="click-hint">Click here</span>
           </div>
           <div class="card-back">
             <p class="message">
@@ -1034,6 +1064,8 @@
         <div class="card-inner">
           <div class="card-front">
             <div class="card-number floating">5</div>
+            <span class="click-hint">Click here</span>
+
           </div>
           <div class="card-back">
             <p class="message">
@@ -1047,6 +1079,7 @@
         <div class="card-inner">
           <div class="card-front">
             <div class="card-number floating">6</div>
+            <span class="click-hint">Click here</span>
           </div>
           <div class="card-back">
             <p class="message">
