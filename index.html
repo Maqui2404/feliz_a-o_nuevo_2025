@@ -3,921 +3,1574 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>¡Feliz Año Nuevo 2025!</title>
+    <title>¡Feliz 2025!</title>
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFETI -->
     <style>
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(45deg, #000428, #004e92);
-        font-family: "Arial", sans-serif;
-        overflow: hidden;
-      }
-
-      .container {
-        text-align: center;
-        color: white;
-        position: relative;
-        z-index: 1;
-        padding: 20px;
-      }
-
-      .year {
-        font-size: 8em;
-        margin: 0;
-        background: linear-gradient(45deg, #ffd700, #ffa500, #ff4500);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        position: relative;
-        animation: glowPulse 2s infinite, textPop 1s ease-in-out;
-        text-shadow: 0 0 10px rgba(255, 223, 0, 0.8),
-          0 0 20px rgba(255, 223, 0, 0.6), 0 0 30px rgba(255, 223, 0, 0.4);
-        perspective: 1000px;
-      }
-
-      .message {
-        font-size: 2em;
-        margin: 20px 0;
-        opacity: 0;
-        animation: fadeIn 1s ease-out 1s forwards;
-      }
-
-      .sender {
-        font-size: 1.5em;
-        margin: 10px 0;
-        color: #ffd700;
-        opacity: 0;
-        animation: fadeIn 1s ease-out 2s forwards;
-      }
-
-      .blessing {
-        font-size: 1.2em;
-        margin: 15px 0;
-        line-height: 1.5;
-        color: #ffa500;
-        opacity: 0;
-        animation: fadeIn 1s ease-out 3s forwards;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .social-icons {
+      #confetti-container {
         position: fixed;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        z-index: 100;
-        opacity: 0;
-        animation: fadeIn 1s ease-out 4s forwards;
-      }
-
-      .social-icons a {
-        color: white;
-        text-decoration: none;
-        font-size: 2em;
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .social-icons a:hover {
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.2);
-        color: #ffd700;
-      }
-
-      .firework {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      @keyframes scaleUp {
-        0% {
-          transform: scale(0);
-        }
-        60% {
-          transform: scale(1.2);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      @keyframes fadeIn {
-        to {
-          opacity: 1;
-        }
-      }
-
-      .sparkles {
-        position: absolute;
-        width: 100%;
-        height: 100%;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
         pointer-events: none;
-      }
-
-      .sparkle {
-        position: absolute;
-        background: white;
-        border-radius: 50%;
-        animation: sparkle 1.5s linear infinite;
-      }
-
-      @keyframes sparkle {
-        0% {
-          transform: scale(0) rotate(0deg);
-          opacity: 0;
-        }
-        50% {
-          transform: scale(1) rotate(180deg);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(0) rotate(360deg);
-          opacity: 0;
-        }
+        z-index: 1000; /* Ajustar según necesidad */
+        overflow: hidden;
       }
 
       .confetti {
         position: absolute;
-        width: 10px;
-        height: 10px;
-        animation: confetti 5s ease-in-out infinite;
+        width: 8px;
+        height: 8px;
+        background-color: #ff69b4;
+        border-radius: 50%;
+        animation: confetti-fall 3s linear infinite,
+          confetti-spin 1.5s ease infinite;
       }
 
-      @keyframes confetti {
-        0% {
-          transform: translateY(-100vh) rotate(0deg);
+      /* Animación de caída */
+      @keyframes confetti-fall {
+        from {
+          transform: translateY(-100%) rotate(0deg);
         }
-        100% {
+        to {
           transform: translateY(100vh) rotate(360deg);
         }
       }
 
-      @media (max-width: 768px) {
-        .year {
-          font-size: 4em;
+      /* Animación de giro */
+      @keyframes confetti-spin {
+        from {
+          transform: rotate(0deg);
         }
-        .message {
-          font-size: 1.5em;
+        to {
+          transform: rotate(360deg);
         }
-        .sender {
-          font-size: 1.2em;
+      }
+    </style>
+
+    <!-- Pantalla flotante -->
+    <style>
+      /* Animaciones base */
+      @keyframes explode {
+        from {
+          transform: scale(0.5);
+          opacity: 1;
         }
-        .blessing {
-          font-size: 1em;
-        }
-        .social-icons a {
-          font-size: 1.5em;
-          width: 40px;
-          height: 40px;
+        to {
+          transform: scale(3);
+          opacity: 0;
         }
       }
 
-      .cards-container {
-        position: fixed;
-        top: 50%;
-        width: 100%;
+      @keyframes glow {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 15px #4a90e2) brightness(1);
+        }
+        50% {
+          filter: drop-shadow(0 0 25px #4a90e2) brightness(1.2);
+        }
+      }
+
+      @keyframes fadeInZoom {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+        }
+        70% {
+          transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1) rotate(0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-15px) scale(1.05);
+        }
+      }
+
+      @keyframes imageRotate {
+        0% {
+          transform: rotate(-3deg) scale(1);
+        }
+        50% {
+          transform: rotate(3deg) scale(1.1);
+        }
+        100% {
+          transform: rotate(-3deg) scale(1);
+        }
+      }
+
+      @keyframes backgroundPulse {
+        0%,
+        100% {
+          background-color: rgba(0, 0, 0, 0.85);
+        }
+        50% {
+          background-color: rgba(0, 0, 0, 0.75);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) rotate(45deg);
+        }
+      }
+
+      /* Estilos base */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
         display: flex;
-        justify-content: space-between;
-        padding: 0 50px;
-        transform: translateY(-50%);
-        pointer-events: none;
-        z-index: 2;
+        justify-content: center;
+        align-items: center;
+        background: #f0f2f5;
       }
 
-      .card {
-        width: 120px;
-        height: 180px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(255, 255, 255, 0.6);
-        border-radius: 15px;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-        pointer-events: auto;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(10px);
-      }
-
-      .card:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
-        border-color: rgba(255, 255, 255, 0.8);
-      }
-
-      .card::before {
-        content: "✉️";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2em;
-      }
-
-      .modal {
+      /* Contenedor de animaciones */
+      #animations-container {
         display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
         z-index: 1000;
-        justify-content: center;
+        animation: backgroundPulse 3s infinite;
+      }
+
+      /* Ventana flotante */
+      #floating-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #1a1f35 0%, #2a3a6a 100%);
+        border-radius: 20px;
+        width: 90%;
+        max-width: 1000px;
+        height: auto;
+        min-height: 80%;
+        max-height: 90vh;
+        padding: clamp(15px, 4vw, 30px);
+        overflow-y: auto;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5),
+          0 0 50px rgba(74, 144, 226, 0.3);
+        animation: fadeInZoom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
         align-items: center;
       }
 
-      .modal-content {
-        background: linear-gradient(135deg, #2c3e50, #3498db);
-        padding: 30px;
-        border-radius: 15px;
-        width: 80%;
-        max-width: 600px;
-        position: relative;
-        color: white;
-        opacity: 0;
-        transform: scale(0.7);
-        transition: all 0.3s ease;
-      }
-
-      .modal.active .modal-content {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      .close-modal {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        cursor: pointer;
-        color: white;
-      }
-
-      .message-title {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-        color: #ffd700;
-      }
-
-      .message-content {
-        font-size: 1.2em;
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
-
-      .message-signature {
-        font-style: italic;
-        color: #ffd700;
-      }
-
-      .shooting-star {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        background: white;
-        border-radius: 50%;
-        filter: blur(1px);
-        animation: shootingStar 2s linear infinite;
-        opacity: 0;
-      }
-
-      @keyframes shootingStar {
-        0% {
-          transform: translateX(0) translateY(0) rotate(45deg);
-          opacity: 1;
-        }
-        70% {
-          opacity: 1;
-        }
-        100% {
-          transform: translateX(500px) translateY(500px) rotate(45deg);
-          opacity: 0;
-        }
-      }
-
-      .firework-circle {
-        position: absolute;
-        pointer-events: none;
-      }
-
-      @keyframes explodeCircle {
-        0% {
-          transform: scale(0);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(2);
-          opacity: 0;
-        }
-      }
-
-      .golden-rain {
-        position: absolute;
-        width: 2px;
-        height: 50px;
-        background: linear-gradient(transparent, #ffd700);
-        animation: goldenRain 2s linear infinite;
-      }
-
-      @keyframes goldenRain {
-        0% {
-          transform: translateY(-100vh) rotate(45deg);
-          opacity: 1;
-        }
-        70% {
-          opacity: 0.7;
-        }
-        100% {
-          transform: translateY(100vh) rotate(45deg);
-          opacity: 0;
-        }
-      }
-
-      .year {
-        position: relative;
-      }
-
-      .year::after {
+      #floating-window::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        border: 2px solid transparent;
-        border-image: linear-gradient(45deg, #ffd700, #ffa500, #ff4500) 1;
+        background: url("fireworks15757.gif") center/cover no-repeat;
+        opacity: 0.15;
+        z-index: 0;
+      }
+
+      /* Estilos de texto */
+      #floating-window h3 {
+        color: #ffffff;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        margin-bottom: clamp(10px, 3vw, 20px);
+        text-shadow: 0 2px 10px rgba(74, 144, 226, 0.5);
+        animation: float 3s ease-in-out infinite;
+        z-index: 1;
+        text-align: center;
+        padding: 0 20px;
+      }
+
+      #floating-window p {
+        color: #b8c6db;
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        max-width: 600px;
+        text-align: center;
+        line-height: 1.6;
+        margin-bottom: clamp(15px, 4vw, 30px);
+        z-index: 1;
+        padding: 0 clamp(10px, 3vw, 20px);
+      }
+
+      /* Grid de imágenes */
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+        gap: clamp(10px, 3vw, 20px);
+        padding: clamp(10px, 3vw, 20px);
+        width: 100%;
+        max-width: 800px;
+        z-index: 1;
+      }
+
+      .image-container {
+        position: relative;
+        overflow: hidden;
         border-radius: 15px;
-        animation: rotate3D 5s infinite ease-in-out;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        animation: imageRotate 6s ease-in-out infinite;
+        aspect-ratio: 16/9;
       }
 
-      @keyframes glowPulse {
-        0% {
-          text-shadow: 0 0 10px rgba(255, 223, 0, 0.8),
-            0 0 20px rgba(255, 223, 0, 0.6), 0 0 30px rgba(255, 223, 0, 0.4);
-        }
-        50% {
-          text-shadow: 0 0 20px rgba(255, 223, 0, 1),
-            0 0 30px rgba(255, 223, 0, 0.8), 0 0 40px rgba(255, 223, 0, 0.6);
-        }
-        100% {
-          text-shadow: 0 0 10px rgba(255, 223, 0, 0.8),
-            0 0 20px rgba(255, 223, 0, 0.6), 0 0 30px rgba(255, 223, 0, 0.4);
-        }
+      .image-container img {
+        width: 95%;
+        height: 95%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
       }
 
-      @keyframes textPop {
-        0% {
-          transform: scale(0.8);
-          opacity: 0;
-        }
-        60% {
-          transform: scale(1.2);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1);
-        }
+      .image-container:hover {
+        transform: translateY(-10px);
       }
 
-      @keyframes rotate3D {
-        0% {
-          transform: rotateX(0deg) rotateY(0deg);
-        }
-        50% {
-          transform: rotateX(20deg) rotateY(20deg);
-        }
-        100% {
-          transform: rotateX(0deg) rotateY(0deg);
-        }
+      .image-container:hover img {
+        transform: scale(1.1);
       }
 
-      @keyframes borderGlow {
-        0%,
-        100% {
-          border-image: linear-gradient(45deg, #ffd700, transparent, #ffa500) 1;
-        }
-        50% {
-          border-image: linear-gradient(45deg, #ffa500, transparent, #ffd700) 1;
-        }
-      }
-
-      .sparkle-burst {
+      /* Botón de cerrar */
+      .button-close {
         position: absolute;
-        pointer-events: none;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ff416c, #ff4b2b);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        z-index: 2;
+        box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
       }
 
-      @keyframes sparkleBurst {
-        0% {
-          transform: scale(0) rotate(0deg);
-          opacity: 1;
+      .button-close:hover {
+        transform: rotate(90deg);
+        background: linear-gradient(135deg, #ff4b2b, #ff416c);
+        box-shadow: 0 6px 20px rgba(255, 75, 43, 0.5);
+      }
+
+      /* Botón de celebrar */
+      #celebrate-button {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        border: none;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #celebrate-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      #celebrate-button::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transform: rotate(45deg);
+        animation: shimmer 2s infinite;
+      }
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        .image-grid {
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(min(200px, 100%), 1fr)
+          );
         }
-        100% {
-          transform: scale(1.5) rotate(180deg);
-          opacity: 0;
+
+        .button-close {
+          top: 10px;
+          right: 10px;
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #floating-window {
+          width: 95%;
+          padding: 15px;
+        }
+
+        .image-grid {
+          grid-template-columns: 1fr;
+        }
+
+        #celebrate-button {
+          padding: 12px 24px;
+          font-size: 1rem;
+        }
+      }
+
+      /* Optimizaciones para dispositivos táctiles */
+      @media (hover: none) {
+        .image-container:hover {
+          transform: none;
+        }
+
+        .image-container:active {
+          transform: scale(0.98);
+        }
+
+        #celebrate-button:hover {
+          transform: none;
+        }
+
+        #celebrate-button:active {
+          transform: scale(0.98);
+        }
+      }
+
+      /* Ajustes para pantallas pequeñas */
+      @media (max-height: 600px) {
+        #floating-window {
+          height: 95vh;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      /* Optimización para modo paisaje */
+      @media (orientation: landscape) and (max-height: 600px) {
+        #floating-window {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        .image-grid {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+      }
+
+      /* Optimizaciones para pantallas de alta resolución */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        #floating-window h3 {
+          text-shadow: 0 1px 5px rgba(74, 144, 226, 0.5);
+        }
+      }
+
+      @media (max-width: 768px) {
+        #floating-window {
+          animation: none;
+          transform: translate(-50%, -50%);
         }
       }
     </style>
+
     <style>
-      .digit {
-        display: inline-block;
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #000428, #004e92);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+        color: white;
         position: relative;
-        animation: fadeIn 1s ease-out forwards;
       }
 
-      #digit-2-1 {
-        animation: bounce 1.5s infinite;
-        animation-delay: 0.2s;
+      .background-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(
+            circle at 20% 20%,
+            rgba(62, 35, 255, 0.2) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 77, 166, 0.2) 0%,
+            transparent 50%
+          );
+        animation: backgroundShift 15s ease infinite alternate;
       }
 
-      #digit-0 {
-        animation: spin 2s infinite;
-        animation-delay: 0.4s;
-      }
-
-      #digit-2-2 {
-        animation: scalePulse 1.5s infinite;
-        animation-delay: 0.6s;
-      }
-
-      #digit-5 {
-        animation: swing 1.5s infinite;
-        animation-delay: 0.8s;
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-
-      @keyframes spin {
+      @keyframes backgroundShift {
         0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes scalePulse {
-        0%,
-        100% {
           transform: scale(1);
         }
-        50% {
+        100% {
           transform: scale(1.2);
         }
       }
 
-      @keyframes swing {
-        0% {
-          transform: rotate(0deg);
-        }
-        25% {
-          transform: rotate(10deg);
-        }
-        75% {
-          transform: rotate(-10deg);
-        }
-        100% {
-          transform: rotate(0deg);
-        }
-      }
-
-      .animated {
+      .firework {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: white;
+        animation: explode 1s ease-out forwards;
         opacity: 0;
-        animation-fill-mode: forwards;
       }
 
-      .fade-in {
-        animation: fadeIn 2s ease-in;
-      }
-
-      @keyframes fadeIn {
+      @keyframes explode {
         0% {
-          opacity: 0;
-          transform: translateY(-20px);
+          transform: scale(1);
+          opacity: 1;
         }
         100% {
+          transform: scale(30);
+          opacity: 0;
+        }
+      }
+
+      .header-container {
+        text-align: center;
+        margin: 2em 0;
+        position: relative;
+      }
+
+      .title {
+        font-family: "Playfair Display", serif;
+        font-size: 4.5em;
+        margin-bottom: 0.5em;
+        animation: glow 2s ease-in-out infinite alternate;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
+        background: linear-gradient(45deg, #ffd700, #ffa500, #ff69b4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+      }
+
+      .subtitle {
+        font-size: 1.8em;
+        margin: 0.5em 0;
+        font-weight: 300;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 0.5s;
+      }
+
+      .name {
+        font-size: 2.2em;
+        font-weight: 600;
+        margin: 0.3em 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 1s;
+        background: linear-gradient(45deg, #ffd700, #ffa500);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      @keyframes fadeInUp {
+        to {
           opacity: 1;
           transform: translateY(0);
         }
       }
 
-      .bounce-in {
-        animation: bounceIn 1.5s ease-out;
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
+        }
+        to {
+          text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6;
+        }
       }
 
-      @keyframes bounceIn {
+      .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2em;
+        padding: 2em;
+        max-width: 1200px;
+        width: 100%;
+        perspective: 1000px;
+      }
+
+      .card {
+        position: relative;
+        height: 220px;
+        perspective: 1000px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+        transform-origin: center;
+      }
+
+      .card.flipped .card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5em;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+
+      .card-front::before,
+      .card-back::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .card:hover .card-front::before,
+      .card:hover .card-back::before {
+        left: 100%;
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .card-number {
+        font-size: 2.5em;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .card-number::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
         0% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1.5);
           opacity: 0;
-          transform: scale(0.5);
+        }
+      }
+
+      .message {
+        font-size: 1.2em;
+        color: white;
+        line-height: 1.4;
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
         }
         50% {
-          opacity: 0.7;
-          transform: scale(1.2);
+          transform: translateY(-20px) rotate(5deg);
         }
         100% {
-          opacity: 1;
-          transform: scale(1);
+          transform: translateY(0px) rotate(0deg);
         }
       }
 
-      .slide-in {
-        animation: slideIn 2s ease-out;
+      .floating {
+        animation: float 3s ease-in-out infinite;
       }
 
-      @keyframes slideIn {
-        0% {
+      .social-links {
+        display: flex;
+        gap: 1.5em;
+        margin: 2em 0;
+        padding: 1em;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .brindemos {
+        display: flex;
+        gap: 1.5em;
+        margin: 2em 0;
+        padding: 1em;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .social-link {
+        color: white;
+        font-size: 1.5em;
+        transition: all 0.3s ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+
+      .social-link:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffd700;
+      }
+
+      .social-link::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.2) 0%,
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .social-link:hover::before {
+        opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+        .title {
+          font-size: 3em;
+        }
+        .subtitle {
+          font-size: 1.4em;
+        }
+        .name {
+          font-size: 1.8em;
+        }
+        .cards-container {
+          grid-template-columns: 1fr;
+          padding: 1em;
+        }
+        .social-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+
+      .stars {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 1s infinite alternate;
+      }
+
+      @keyframes twinkle {
+        from {
+          opacity: 0.2;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Tetris */
+      .tetris-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .tetris-cell {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background-color 0.3s ease;
+      }
+
+      .tetris-piece {
+        position: absolute;
+        transition: transform 0.5s ease;
+      }
+
+      @media (max-width: 768px) {
+        .tetris-cell {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    </style>
+
+    <!-- <style>
+      @keyframes explode {
+        from {
+          transform: scale(0.5);
+          opacity: 1;
+        }
+        to {
+          transform: scale(3);
           opacity: 0;
-          transform: translateX(-100px);
+        }
+      }
+    </style> -->
+    <!-- ROBOT -->
+    <style>
+      @keyframes wink {
+        0%,
+        100% {
+          r: 5;
+        }
+        50% {
+          r: 1; /* Reducir el radio del ojo para simular el guiño */
+        }
+      }
+
+      @keyframes arm-wave-left {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(-30deg);
         }
         100% {
-          opacity: 1;
-          transform: translateX(0);
+          transform: rotate(0deg);
+        }
+      }
+
+      @keyframes arm-wave-right {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(30deg);
+        }
+        100% {
+          transform: rotate(0deg);
         }
       }
     </style>
   </head>
   <body>
-    <div class="sparkles"></div>
-    <div class="container">
-      <!-- <h1 class="year">2025</h1> -->
-      <h1 class="year">
-        <span class="digit" id="digit-2-1">2</span>
-        <span class="digit" id="digit-0">0</span>
-        <span class="digit" id="digit-2-2">2</span>
-        <span class="digit" id="digit-5">5</span>
-      </h1>
-      <p class="message">¡Feliz Año Nuevo!</p>
-      <p class="sender">Te desea Marco Mayta</p>
-      <p class="blessing">
-        Que Dios te bendiga con su santa voluntad e infinito amor. Que este año
-        esté lleno de alegría, éxitos y momentos especiales junto a tus seres
-        queridos.
-      </p>
+    <div class="background-animation"></div>
+    <div class="stars"></div>
+
+    <div id="confetti-container"></div>
+    <script>
+      // Función para generar confeti
+      function generateConfetti() {
+        const container = document.getElementById("confetti-container");
+        const colors = ["#FFD700", "#FF69B4", "#50E3C2", "#4a90e2", "#FF4B2B"];
+        const confettiCount = 50;
+
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.animationDelay = Math.random() * 3 + "s";
+          confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+          container.appendChild(confetti);
+
+          // Eliminar confeti después de la animación
+          setTimeout(() => {
+            confetti.remove();
+          }, 3000);
+        }
+      }
+
+      // Lanzar confeti al iniciar o cuando se haga clic en un botón
+      document
+        .getElementById("celebrate-button")
+        .addEventListener("click", generateConfetti);
+    </script>
+
+    <div class="header-container">
+      <h1 class="title">¡Feliz 2025!</h1>
+      <p class="subtitle">Te desea</p>
+      <p class="name">Marco Mayta</p>
+    </div>
+
+    <!-- Contenedor del Robot -->
+    <div id="robot-container">
+      <div class="container mx-auto flex flex-col justify-center items-center">
+        <svg
+          id="robot"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 200 200"
+          class="w-72 h-72"
+        >
+          <!-- Cabeza -->
+          <rect
+            x="65"
+            y="30"
+            width="70"
+            height="50"
+            rx="15"
+            class="fill-white"
+          />
+          <!-- Pantalla de la cabeza -->
+          <rect
+            x="75"
+            y="40"
+            width="50"
+            height="30"
+            rx="10"
+            class="fill-black"
+          />
+          <!-- Ojos -->
+          <circle id="eye-left" cx="90" cy="55" r="5" class="fill-blue-500" />
+          <circle id="eye-right" cx="110" cy="55" r="5" class="fill-blue-500" />
+
+          <!-- Cuerpo -->
+          <rect
+            x="40"
+            y="80"
+            width="120"
+            height="100"
+            rx="30"
+            class="fill-white"
+          />
+
+          <!-- Círculo central brillante -->
+          <circle
+            id="button"
+            cx="100"
+            cy="130"
+            r="15"
+            class="fill-green-700 cursor-pointer"
+            style="animation: glow 2s infinite"
+          />
+
+          <!-- Brazos -->
+          <rect
+            id="arm-left"
+            x="20"
+            y="90"
+            width="20"
+            height="80"
+            rx="10"
+            class="fill-white origin-top"
+            style="transform-origin: 30px 90px"
+          />
+          <rect
+            id="arm-right"
+            x="160"
+            y="90"
+            width="20"
+            height="80"
+            rx="10"
+            class="fill-white origin-top"
+            style="transform-origin: 170px 90px"
+          />
+        </svg>
+      </div>
     </div>
 
     <div class="cards-container">
-      <div class="card" onclick="openModal(1)"></div>
-      <div class="card" onclick="openModal(2)"></div>
-    </div>
-
-    <div class="modal" id="modal1">
-      <div class="modal-content">
-        <span class="close-modal" onclick="closeModal(1)">&times;</span>
-        <h2 class="message-title">Un Nuevo Amanecer</h2>
-        <p class="message-content">
-          En este nuevo año 2025, que cada amanecer traiga consigo la promesa de
-          nuevas oportunidades y sueños por cumplir. Que cada día sea una página
-          en blanco lista para escribir historias maravillosas, llenas de amor,
-          éxito y felicidad. Que tus pasos sean firmes, tus decisiones sabias y
-          tu corazón siempre esté lleno de esperanza.
-        </p>
-        <p class="message-content">GO O NO GO</p>
-        <p class="message-signature">Con cariño, Marco</p>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card-number floating">1</div>
+          </div>
+          <div class="card-back">
+            <p class="message">
+              Que cada amanecer del 2025 ilumine tu vida con esperanza,
+              sabiduría y nuevas oportunidades para ser tu mejor versión.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card-number floating">2</div>
+          </div>
+          <div class="card-back">
+            <p class="message">
+              Que tus sueños más profundos encuentren su camino a la realidad y
+              que la alegría sea una constante en cada paso que des.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card-number floating">3</div>
+          </div>
+          <div class="card-back">
+            <p class="message">
+              Que este año sea un lienzo en blanco donde pintes tus mayores
+              triunfos, rodeado de amor, gratitud y plenitud.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card-number floating">4</div>
+          </div>
+          <div class="card-back">
+            <p class="message">
+              Que la salud sea tu escudo, la fe tu guía, y la prosperidad el
+              fruto de tu esfuerzo en este maravilloso nuevo año.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card-number floating">5</div>
+          </div>
+          <div class="card-back">
+            <p class="message">
+              Que cada desafío se convierta en una lección y cada victoria en un
+              motivo de celebración con quienes amas.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="card-number floating">6</div>
+          </div>
+          <div class="card-back">
+            <p class="message">
+              Que el amor sea tu mayor riqueza, la paz tu compañera constante, y
+              que siempre encuentres razones para sonreír.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="modal" id="modal2">
-      <div class="modal-content">
-        <span class="close-modal" onclick="closeModal(2)">&times;</span>
-        <h2 class="message-title">Bendiciones para el 2025</h2>
-        <p class="message-content">
-          Que este año nuevo sea el lienzo perfecto para pintar tus más grandes
-          sueños. Que cada momento sea una oportunidad para crecer, cada desafío
-          una escalera hacia el éxito, y cada sonrisa un recordatorio de las
-          bendiciones que la vida nos regala. Que la paz y la prosperidad sean
-          tus compañeras constantes en este viaje de 365 días.
-        </p>
-        <p class="message-signature">Con gratitud, Marco</p>
-      </div>
-    </div>
-
-    <div class="social-icons">
+    <div class="social-links">
       <a
-        href="https://www.linkedin.com/in/marco-mayta-835781170/"
+        href="https://facebook.com/100086483755539"
+        class="social-link"
         target="_blank"
-        title="LinkedIn"
       >
-        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-facebook-f"></i>
       </a>
-      <a href="https://github.com/Maqui2404" target="_blank" title="GitHub">
+      <a
+        href="https://orcid.org/0009-0009-6019-2925"
+        class="social-link"
+        target="_blank"
+      >
+        <i class="fas fa-id-badge"></i>
+      </a>
+
+      <a
+        href="https://github.com/Maqui2404"
+        class="social-link"
+        target="_blank"
+      >
         <i class="fab fa-github"></i>
       </a>
       <a
-        href="https://facebook.com/100086483755539"
+        href="https://www.linkedin.com/in/marco-mayta-835781170/"
+        class="social-link"
         target="_blank"
-        title="Facebook"
       >
-        <i class="fab fa-facebook"></i>
-      </a>
-      <a href="https://wa.me/+51932618811" target="_blank" title="WhatsApp">
-        <i class="fab fa-whatsapp"></i>
+        <i class="fab fa-linkedin-in"></i>
       </a>
     </div>
 
+    <!-- <div class="brindemos">
+      <button
+        id="celebrate-button"
+        class="btn"
+        style="
+          display: inline-block;
+          padding: 15px 30px;
+          font-size: 1.2em;
+          font-weight: bold;
+          color: white;
+          background: linear-gradient(45deg, #ff416c, #ff4b2b);
+          border: none;
+          border-radius: 50px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          cursor: pointer;
+        "
+        onmouseover="this.style.background='linear-gradient(45deg, #ff4b2b, #ff416c)'; this.style.transform='scale(1.1)'; this.style.boxShadow='0 10px 20px rgba(0, 0, 0, 0.5)';"
+        onmouseout="this.style.background='linear-gradient(45deg, #ff416c, #ff4b2b)'; this.style.transform='scale(1)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.3)';"
+      >
+        ¡Brindemos por un Año Nuevo!
+      </button>
+    </div> -->
+
+    <div class="brindemos">
+      <button id="celebrate-button">¡Brindemos por un Año Nuevo!</button>
+    </div>
+
+    <div id="animations-container">
+      <div id="floating-window">
+        <button class="button-close" onclick="closeAnimationsContainer()">
+          &times;
+        </button>
+        <h3>Por un año con más...</h3>
+        <p>
+          Estadística, Informática, Ciencia de Datos, Computación Cuántica,
+          Innovación, y logros inolvidables.
+        </p>
+        <div class="image-grid">
+          <div class="image-container">
+            <img src="estadistica.jpeg" alt="Estadística" />
+          </div>
+          <div class="image-container">
+            <img src="informatica.jpeg" alt="Informática" />
+          </div>
+          <div class="image-container">
+            <img src="ciencia de datos.jpeg" alt="Ciencia de Datos" />
+          </div>
+          <div class="image-container">
+            <img
+              src="Computacion_Cuantica_746x419.jpg"
+              alt="Computación Cuántica"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
-      function createFirework(x, y) {
-        const colors = [
-          "#FFD700",
-          "#FF6B6B",
-          "#4ECDC4",
-          "#45B7D1",
-          "#96CEB4",
-          "#FF1493",
-          "#00FF00",
-          "#FF4500",
-        ];
+      const button_ = document.getElementById("celebrate-button");
+      const animationsContainer = document.getElementById(
+        "animations-container"
+      );
 
-        for (let i = 0; i < 50; i++) {
-          const particle = document.createElement("div");
-          particle.className = "firework";
-          particle.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
+      // Eventos de click y touch
+      button_.addEventListener("click", handleCelebration);
+      button_.addEventListener(
+        "touchstart",
+        (e) => {
+          e.preventDefault();
+          handleCelebration();
+        },
+        { passive: false }
+      );
 
-          const angle = (i * 7.2 * Math.PI) / 180;
-          const velocity = 15 + Math.random() * 10;
+      function handleCelebration() {
+        animationsContainer.style.display = "block";
+        launchFireworks();
+      }
 
-          particle.style.left = x + "px";
-          particle.style.top = y + "px";
+      function closeAnimationsContainer() {
+        animationsContainer.style.display = "none";
+      }
 
-          document.body.appendChild(particle);
+      function launchFireworks() {
+        const body = document.body;
+        const colors = ["#ff416c", "#4a90e2", "#50E3C2", "#FFD700", "#FF69B4"];
+        const isMobile = window.innerWidth <= 768;
+        const particleCount = isMobile ? 25 : 50;
 
-          const animation = particle.animate(
-            [
-              { transform: "translate(0, 0) scale(1)", opacity: 1 },
-              {
-                transform: `translate(${Math.cos(angle) * velocity * 25}px, 
-                                   ${
-                                     Math.sin(angle) * velocity * 25
-                                   }px) scale(0)`,
-                opacity: 0,
-              },
-            ],
-            {
-              duration: 1500 + Math.random() * 1000,
-              easing: "cubic-bezier(0,0,0.2,1)",
-            }
-          );
+        for (let i = 0; i < particleCount; i++) {
+          setTimeout(() => {
+            const firework = document.createElement("div");
+            firework.style.position = "fixed";
+            firework.style.width = isMobile ? "8px" : "10px";
+            firework.style.height = isMobile ? "8px" : "10px";
+            firework.style.borderRadius = "50%";
+            firework.style.background =
+              colors[Math.floor(Math.random() * colors.length)];
+            firework.style.top = `${Math.random() * 100}vh`;
+            firework.style.left = `${Math.random() * 100}vw`;
+            firework.style.animation =
+              "explode 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards";
+            firework.style.zIndex = "1001";
+            body.appendChild(firework);
 
-          animation.onfinish = () => particle.remove();
+            setTimeout(() => {
+              firework.remove();
+            }, 1500);
+          }, i * (isMobile ? 75 : 50));
+        }
+      }
+    </script>
+    <script>
+      // Manejo de las tarjetas
+      document.querySelectorAll(".card").forEach((card) => {
+        card.addEventListener("click", () => {
+          card.classList.toggle("flipped");
+          createFireworks(10);
+        });
+      });
+
+      // Sistema de fuegos artificiales mejorado
+      function createFireworks(count) {
+        for (let i = 0; i < count; i++) {
+          setTimeout(() => {
+            const firework = document.createElement("div");
+            firework.className = "firework";
+
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+
+            firework.style.left = `${x}px`;
+            firework.style.top = `${y}px`;
+
+            const colors = [
+              "#ff0",
+              "#f0f",
+              "#0ff",
+              "#ff4da6",
+              "#f06",
+              "#FFD700",
+              "#FFA500",
+            ];
+            firework.style.background =
+              colors[Math.floor(Math.random() * colors.length)];
+
+            document.body.appendChild(firework);
+
+            setTimeout(() => {
+              firework.remove();
+            }, 1000);
+          }, i * 200);
         }
       }
 
-      function createSparkles() {
-        const sparklesContainer = document.querySelector(".sparkles");
-        for (let i = 0; i < 100; i++) {
-          const sparkle = document.createElement("div");
-          sparkle.className = "sparkle";
-          sparkle.style.width = Math.random() * 4 + "px";
-          sparkle.style.height = sparkle.style.width;
-          sparkle.style.left = Math.random() * 100 + "%";
-          sparkle.style.top = Math.random() * 100 + "%";
-          sparkle.style.animationDelay = Math.random() * 2 + "s";
-          sparklesContainer.appendChild(sparkle);
-        }
-      }
+      // Crear fuegos artificiales automáticos
+      setInterval(() => {
+        createFireworks(3);
+      }, 2000);
 
+      // Efecto de confeti mejorado
       function createConfetti() {
-        const colors = [
-          "#FFD700",
-          "#FF6B6B",
-          "#4ECDC4",
-          "#45B7D1",
-          "#96CEB4",
-          "#FF1493",
-          "#00FF00",
-        ];
-        for (let i = 0; i < 150; i++) {
-          const confetti = document.createElement("div");
-          confetti.className = "confetti";
-          confetti.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
-          confetti.style.left = Math.random() * 100 + "%";
-          confetti.style.animationDelay = Math.random() * 5 + "s";
-          document.body.appendChild(confetti);
-        }
-      }
+        const confetti = document.createElement("div");
+        confetti.style.position = "absolute";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.top = "-5px";
+        confetti.style.width = "5px";
+        confetti.style.height = "5px";
+        confetti.style.borderRadius = "50%";
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        confetti.style.pointerEvents = "none";
 
-      function createRandomFirework() {
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * (window.innerHeight * 0.7);
-        createFirework(x, y);
-      }
+        document.body.appendChild(confetti);
 
-      document.addEventListener("DOMContentLoaded", () => {
-        createSparkles();
-        createConfetti();
-
-        setInterval(createRandomFirework, 1000);
-
-        for (let i = 0; i < 5; i++) {
-          setTimeout(() => createRandomFirework(), i * 300);
-        }
-      });
-
-      document.addEventListener("click", (e) => {
-        for (let i = 0; i < 3; i++) {
-          setTimeout(() => createFirework(e.clientX, e.clientY), i * 200);
-        }
-      });
-
-      function openModal(number) {
-        const modal = document.getElementById(`modal${number}`);
-        modal.style.display = "flex";
-        setTimeout(() => {
-          modal.classList.add("active");
-        }, 10);
-      }
-
-      function closeModal(number) {
-        const modal = document.getElementById(`modal${number}`);
-        modal.classList.remove("active");
-        setTimeout(() => {
-          modal.style.display = "none";
-        }, 300);
-      }
-
-      window.onclick = function (event) {
-        const modals = document.getElementsByClassName("modal");
-        for (let modal of modals) {
-          if (event.target == modal) {
-            const number = modal.id.replace("modal", "");
-            closeModal(number);
-          }
-        }
-      };
-
-      function createShootingStar() {
-        const star = document.createElement("div");
-        star.className = "shooting-star";
-        star.style.left = Math.random() * window.innerWidth + "px";
-        star.style.top = Math.random() * (window.innerHeight / 2) + "px";
-        document.body.appendChild(star);
-
-        setTimeout(() => star.remove(), 2000);
-      }
-
-      function createFireworkCircle(x, y, color) {
-        const circle = document.createElement("div");
-        circle.className = "firework-circle";
-        circle.style.left = x + "px";
-        circle.style.top = y + "px";
-        circle.style.width = "100px";
-        circle.style.height = "100px";
-        circle.style.border = `2px solid ${color}`;
-        circle.style.borderRadius = "50%";
-
-        document.body.appendChild(circle);
-
-        circle.animate(
+        const animation = confetti.animate(
           [
-            { transform: "scale(0)", opacity: 1 },
-            { transform: "scale(2)", opacity: 0 },
-          ],
-          {
-            duration: 1000,
-            easing: "ease-out",
-          }
-        ).onfinish = () => circle.remove();
-      }
-
-      function createGoldenRain() {
-        const rain = document.createElement("div");
-        rain.className = "golden-rain";
-        rain.style.left = Math.random() * window.innerWidth + "px";
-        document.body.appendChild(rain);
-
-        setTimeout(() => rain.remove(), 2000);
-      }
-
-      function createSparkleBurst(x, y) {
-        const colors = ["#FFD700", "#FFA500", "#FF4500", "#FF1493"];
-        const burst = document.createElement("div");
-        burst.className = "sparkle-burst";
-        burst.style.left = x + "px";
-        burst.style.top = y + "px";
-
-        for (let i = 0; i < 12; i++) {
-          const sparkle = document.createElement("div");
-          sparkle.style.position = "absolute";
-          sparkle.style.width = "2px";
-          sparkle.style.height = "20px";
-          sparkle.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
-          sparkle.style.transform = `rotate(${i * 30}deg) translateY(-30px)`;
-          burst.appendChild(sparkle);
-        }
-
-        document.body.appendChild(burst);
-
-        burst.animate(
-          [
-            { transform: "scale(0) rotate(0deg)", opacity: 1 },
-            { transform: "scale(1.5) rotate(180deg)", opacity: 0 },
-          ],
-          {
-            duration: 1000,
-            easing: "ease-out",
-          }
-        ).onfinish = () => burst.remove();
-      }
-
-      function createFirework(x, y) {
-        const colors = [
-          "#FFD700",
-          "#FF6B6B",
-          "#4ECDC4",
-          "#45B7D1",
-          "#96CEB4",
-          "#FF1493",
-          "#00FF00",
-          "#FF4500",
-        ];
-        const selectedColor = colors[Math.floor(Math.random() * colors.length)];
-
-        createFireworkCircle(x, y, selectedColor);
-
-        for (let i = 0; i < 60; i++) {
-          const particle = document.createElement("div");
-          particle.className = "firework";
-          particle.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
-
-          const angle = (i * 6 * Math.PI) / 180;
-          const velocity = 15 + Math.random() * 15;
-
-          particle.style.left = x + "px";
-          particle.style.top = y + "px";
-
-          document.body.appendChild(particle);
-
-          const animation = particle.animate(
-            [
-              { transform: "translate(0, 0) scale(1)", opacity: 1 },
-              {
-                transform: `translate(${Math.cos(angle) * velocity * 25}px, 
-                           ${Math.sin(angle) * velocity * 25}px) scale(0)`,
-                opacity: 0,
-              },
-            ],
+            { transform: "translateY(0) rotate(0)", opacity: 1 },
             {
-              duration: 1500 + Math.random() * 1000,
-              easing: "cubic-bezier(0,0,0.2,1)",
-            }
-          );
+              transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`,
+              opacity: 0,
+            },
+          ],
+          {
+            duration: 3000 + Math.random() * 3000,
+            easing: "cubic-bezier(.37,0,.63,1)",
+          }
+        );
 
-          animation.onfinish = () => particle.remove();
-        }
-
-        createSparkleBurst(x, y);
+        animation.onfinish = () => confetti.remove();
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        createSparkles();
-        createConfetti();
+      // Crear confeti continuamente
+      setInterval(createConfetti, 100);
 
-        setInterval(() => {
-          if (Math.random() > 0.7) createShootingStar();
-        }, 2000);
+      // Crear estrellas en el fondo
+      function createStars() {
+        const starsContainer = document.querySelector(".stars");
+        const numberOfStars = 100;
 
-        setInterval(() => {
-          if (Math.random() > 0.8) createGoldenRain();
-        }, 1000);
-
-        setInterval(createRandomFirework, 800);
-
-        for (let i = 0; i < 8; i++) {
-          setTimeout(() => createRandomFirework(), i * 200);
+        for (let i = 0; i < numberOfStars; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.animationDelay = `${Math.random() * 2}s`;
+          starsContainer.appendChild(star);
         }
+      }
+
+      // Inicializar estrellas
+      createStars();
+
+      // Efecto de hover en las tarjetas
+      document.querySelectorAll(".card").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const angleX = (y - centerY) / 20;
+          const angleY = (centerX - x) / 20;
+
+          card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "translateY(0)";
+        });
+      });
+
+      // Iniciar fuegos artificiales al cargar la página
+      window.addEventListener("load", () => {
+        createFireworks(15);
+      });
+    </script>
+
+    <script>
+      // [Previous scripts remain the same]
+
+      // Tetris Game Logic
+      class TetrisBackground {
+        constructor() {
+          this.container = document.createElement("div");
+          this.container.className = "tetris-container";
+          document.body.appendChild(this.container);
+
+          this.cols = Math.floor(window.innerWidth / 30);
+          this.rows = Math.floor(window.innerHeight / 30);
+          this.grid = Array(this.rows)
+            .fill()
+            .map(() => Array(this.cols).fill(0));
+
+          this.colors = [
+            "#FF0000",
+            "#00FF00",
+            "#0000FF",
+            "#FFFF00",
+            "#FF00FF",
+            "#00FFFF",
+            "#FFA500",
+          ];
+
+          this.pieces = [
+            [[1, 1, 1, 1]], // I
+            [
+              [1, 1],
+              [1, 1],
+            ], // O
+            [
+              [1, 1, 1],
+              [0, 1, 0],
+            ], // T
+            [
+              [1, 1, 1],
+              [1, 0, 0],
+            ], // L
+            [
+              [1, 1, 1],
+              [0, 0, 1],
+            ], // J
+            [
+              [1, 1, 0],
+              [0, 1, 1],
+            ], // S
+            [
+              [0, 1, 1],
+              [1, 1, 0],
+            ], // Z
+          ];
+
+          this.currentPiece = null;
+          this.currentX = 0;
+          this.currentY = 0;
+          this.currentColor = "";
+
+          this.init();
+          this.spawnPiece();
+          this.update();
+        }
+
+        init() {
+          // Create grid
+          for (let y = 0; y < this.rows; y++) {
+            for (let x = 0; x < this.cols; x++) {
+              const cell = document.createElement("div");
+              cell.className = "tetris-cell";
+              cell.style.left = `${x * 30}px`;
+              cell.style.top = `${y * 30}px`;
+              this.container.appendChild(cell);
+            }
+          }
+        }
+
+        spawnPiece() {
+          const pieceIdx = Math.floor(Math.random() * this.pieces.length);
+          this.currentPiece = this.pieces[pieceIdx];
+          this.currentX = Math.floor(
+            (this.cols - this.currentPiece[0].length) / 2
+          );
+          this.currentY = 0;
+          this.currentColor =
+            this.colors[Math.floor(Math.random() * this.colors.length)];
+
+          if (this.checkCollision()) {
+            this.clearGrid();
+          }
+
+          this.drawPiece();
+        }
+
+        checkCollision() {
+          for (let y = 0; y < this.currentPiece.length; y++) {
+            for (let x = 0; x < this.currentPiece[y].length; x++) {
+              if (this.currentPiece[y][x]) {
+                const newY = this.currentY + y;
+                const newX = this.currentX + x;
+
+                if (
+                  newY >= this.rows ||
+                  newX < 0 ||
+                  newX >= this.cols ||
+                  (newY >= 0 && this.grid[newY][newX])
+                ) {
+                  return true;
+                }
+              }
+            }
+          }
+          return false;
+        }
+
+        clearGrid() {
+          this.grid = Array(this.rows)
+            .fill()
+            .map(() => Array(this.cols).fill(0));
+          const cells = this.container.getElementsByClassName("tetris-cell");
+          for (let cell of cells) {
+            cell.style.backgroundColor = "transparent";
+          }
+        }
+
+        drawPiece() {
+          const cells = this.container.getElementsByClassName("tetris-cell");
+          for (let y = 0; y < this.currentPiece.length; y++) {
+            for (let x = 0; x < this.currentPiece[y].length; x++) {
+              if (this.currentPiece[y][x]) {
+                const cellX = this.currentX + x;
+                const cellY = this.currentY + y;
+                if (cellY >= 0) {
+                  const cellIndex = cellY * this.cols + cellX;
+                  cells[cellIndex].style.backgroundColor = this.currentColor;
+                }
+              }
+            }
+          }
+        }
+
+        clearPiece() {
+          const cells = this.container.getElementsByClassName("tetris-cell");
+          for (let y = 0; y < this.currentPiece.length; y++) {
+            for (let x = 0; x < this.currentPiece[y].length; x++) {
+              if (this.currentPiece[y][x]) {
+                const cellX = this.currentX + x;
+                const cellY = this.currentY + y;
+                if (cellY >= 0) {
+                  const cellIndex = cellY * this.cols + cellX;
+                  cells[cellIndex].style.backgroundColor = "transparent";
+                }
+              }
+            }
+          }
+        }
+
+        movePiece() {
+          this.clearPiece();
+          this.currentY++;
+
+          if (this.checkCollision()) {
+            this.currentY--;
+            this.freezePiece();
+            this.clearLines();
+            this.spawnPiece();
+            return;
+          }
+
+          this.drawPiece();
+        }
+
+        freezePiece() {
+          for (let y = 0; y < this.currentPiece.length; y++) {
+            for (let x = 0; x < this.currentPiece[y].length; x++) {
+              if (this.currentPiece[y][x]) {
+                const newY = this.currentY + y;
+                if (newY >= 0) {
+                  this.grid[newY][this.currentX + x] = 1;
+                }
+              }
+            }
+          }
+        }
+
+        clearLines() {
+          for (let y = this.rows - 1; y >= 0; y--) {
+            if (this.grid[y].every((cell) => cell === 1)) {
+              this.grid.splice(y, 1);
+              this.grid.unshift(Array(this.cols).fill(0));
+
+              // Update visual grid
+              const cells =
+                this.container.getElementsByClassName("tetris-cell");
+              for (let row = y; row > 0; row--) {
+                for (let x = 0; x < this.cols; x++) {
+                  const currentIndex = row * this.cols + x;
+                  const aboveIndex = (row - 1) * this.cols + x;
+                  cells[currentIndex].style.backgroundColor =
+                    cells[aboveIndex].style.backgroundColor;
+                }
+              }
+            }
+          }
+        }
+
+        update() {
+          this.movePiece();
+          setTimeout(() => this.update(), 1000);
+        }
+      }
+
+      // Iniciar Tetris background después de cargar la página
+      window.addEventListener("load", () => {
+        new TetrisBackground();
+      });
+    </script>
+
+    <script>
+      const button = document.getElementById("button");
+      const eyeLeft = document.getElementById("eye-left");
+      const eyeRight = document.getElementById("eye-right");
+      const armLeft = document.getElementById("arm-left");
+      const armRight = document.getElementById("arm-right");
+
+      button.addEventListener("click", () => {
+        // Guiño de ojos
+        eyeLeft.style.animation = "wink 0.5s infinite";
+        eyeRight.style.animation = "wink 0.5s infinite";
+
+        // Movimiento de brazos saludando en direcciones opuestas
+        armLeft.style.animation = "arm-wave-left 1s infinite";
+        armRight.style.animation = "arm-wave-right 1s infinite";
+
+        // Detener animaciones después de 2 segundos
+        setTimeout(() => {
+          eyeLeft.style.animation = "";
+          eyeRight.style.animation = "";
+          armLeft.style.animation = "";
+          armRight.style.animation = "";
+        }, 2000);
       });
     </script>
   </body>
